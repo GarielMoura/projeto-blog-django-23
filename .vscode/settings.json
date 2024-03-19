@@ -28,9 +28,11 @@
       }
     },
     "python.languageServer": "Pylance",
-    "python.linting.mypyArgs": [
-      "--ignore-missing-imports"
-  ],
+    "python.formatting.autopep8Args": [
+      "--indent-size=4",
+      "--max-line-length=80"
+      // "--ignore=E111"
+    ],
     
     
     // "Python.formatting.autopep8Args": [
