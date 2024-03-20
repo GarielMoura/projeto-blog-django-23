@@ -7,7 +7,7 @@ import utils.model_validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('site_setup', '0004_sitesetup_favicon'),
+        ('site_setup', '0004_menulink_site_setup'),
     ]
 
     operations = [

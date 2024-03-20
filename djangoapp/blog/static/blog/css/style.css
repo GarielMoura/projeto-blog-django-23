@@ -57,8 +57,10 @@
     --mw-post: 90rem;
   }
   
- 
-   html {
+ html{
+    font-size: 62.5;
+ }
+   
   body {
     background-color: hsl(var(--clr-white));
     color: hsl(var(--clr-black));
@@ -136,4 +138,3 @@
   code {
     font-family: var(--ff-mono);
   }
-}
