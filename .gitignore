@@ -6,7 +6,7 @@ __localcode
 /data/
 .vscode
 venv
-.flake8
+
 
 # Django #
 *.log

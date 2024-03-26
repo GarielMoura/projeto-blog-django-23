@@ -1,4 +1,5 @@
 # type: ignore
+from django.contrib.auth.models import User
 from django.db import models
 from utils.rands import slugfy_new
 
@@ -66,10 +67,11 @@ class Page(models.Model):
     def __str__(self):
         return self.title
 
-    class Post(models.Model):
-        class Meta:
-            verbose_name = 'Post'
-            verbose_name_plural = 'Posts'
+
+class Post(models.Model):
+    class Meta:
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
 
     title = models.CharField(max_length=65,)
     slug = models.SlugField(
@@ -90,13 +92,31 @@ class Page(models.Model):
         default=True,
         help_text='Se marcado, exibirá a capa dentro do post.',
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='post_created_by'
+    )
     updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name='post_updated_by'
+    )
+
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True,
         default=None,
     )
     tags = models.ManyToManyField(Tag, blank=True, default='')
 
-    def __str__(self):
+    def __str__(self):  # noqa: F811
         return self.title
+
+    def save(self, *args, **kwargs):  # noqa: F811
+        if not self.slug:
+            self.slug = slugfy_new(self.title, 4)
+        return super().save(*args, **kwargs)
