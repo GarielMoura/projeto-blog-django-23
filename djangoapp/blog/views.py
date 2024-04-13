@@ -2,7 +2,6 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from blog.models import Post
 
-
 PER_PAGE = 9
 
 
