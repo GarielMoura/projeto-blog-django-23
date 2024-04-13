@@ -4,6 +4,7 @@ from django.db import models
 from utils.rands import slugfy_new
 from utils.images import resize_image
 from django_summernote.models import AbstractAttachment
+from django.urls import reverse
 
 
 class PostAttachment(AbstractAttachment):
@@ -90,7 +91,9 @@ class Page(models.Model):
 
 class PostManager(models.Manager):
     def get_published(self):
-        return self.filter(is_published=True)
+        return self\
+            .filter(is_published=True)\
+            .order_by('-pk')
 
 
 class Post(models.Model):
@@ -142,6 +145,11 @@ class Post(models.Model):
 
     def __str__(self):  # noqa: F811
         return self.title
+
+    def get_absolute_url(self):
+        if not self.is_published:
+            return reverse('blog:index')
+        return reverse('blog:post', args=(self.slug,))
 
     def save(self, *args, **kwargs):  # noqa: F811
         if not self.slug:
