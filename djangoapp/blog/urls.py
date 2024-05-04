@@ -5,8 +5,8 @@ from blog.views import \
     page, \
     CreatedByListView, \
     CategoryListView, \
-    tag, \
-    search, \
+    TagListView, \
+    SearchLstView, \
     PostListView
 
 app_name = 'blog'
@@ -18,6 +18,6 @@ urlpatterns = [
     path('created_by/<int:author_pk>/',
          CreatedByListView.as_view(), name='created_by'),
     path('category/<slug:slug>/', CategoryListView.as_view(), name='category'),
-    path('tag/<slug:slug>/', tag, name='tag'),
-    path('search/', search, name='search'),
+    path('tag/<slug:slug>/', TagListView.as_view(), name='tag'),
+    path('search/', SearchLstView.as_view(), name='search'),
 ]
